@@ -1,18 +1,16 @@
-def check(pattern, char):
-    if char:
-        if pattern in ['', '.']:
-            return True
-        elif pattern == char:
-            return True
-        else:
-            return False
-    else:
-        if pattern:
-            return False
-        else:
-            return True
+def single_char_match(re, char):
+    return re == '' or char == re or (re == '.' and char != '')
 
-# Take Input
-pattern, str = input().strip().split('|')
-# Process and Return Output
-print(len(pattern) == 0 or (len(pattern) == len(str) and all([check(p, c)for p, c in zip(pattern, str)])))
+def equal_length_match(re, string):
+    if re == '':
+        return True
+    if string == '':
+        return False
+    if not single_char_match(re[0], string[0]):
+        return False
+    return equal_length_match(re[1:], string[1:])
+
+def match(re, string):
+    return equal_length_match(re, string)
+
+print(match(*input().split('|')))

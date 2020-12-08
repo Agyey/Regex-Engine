@@ -1,18 +1,9 @@
-def check(pattern, char):
-    if char:
-        if pattern in ['', '.']:
-            return True
-        elif pattern == char:
-            return True
-        else:
-            return False
-    else:
-        if pattern:
-            return False
-        else:
-            return True
+def single_char_match(re, char):
+    return re == '' or char == re or (re == '.' and char != '')
 
-# Take Input
-pattern, char = input().strip().split('|')
-# Process and Return Output
-print(check(pattern, char))
+def match(re, char):
+    if re == '':
+        return True
+    return single_char_match(re, char)
+
+print(match(*input().split('|')))
